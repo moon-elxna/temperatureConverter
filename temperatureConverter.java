@@ -24,38 +24,44 @@ public class temperatureConverter {
         return number;
     }
 
-    public static double convert(String Unit, double n) {
+    public static double convert(String u, double n) {
         double answer = 0;
-        switch (Unit) {
-            case "CF":
-                answer = ((n * (9 / 5)) + 32);
-                break;
-            case "CK":
-                answer = n + 273.15;
-                break;
-            case "FC":
-                break;
-            case "FK":
-                break;
-            case "KC":
-                break;
-            case "KF":
-                break;
-            default:
-                System.out.println("Error!");
-                break;
+        double x;
+        if (u.equals("CF")) {
+            x = (n * 1.8);
+            answer = x + 32;
+
+        } else if (u.equals("CK")) {
+            answer = n + 273.15;
+
+        } else if (u.equals("FC")) {
+            x = n - 32;
+            answer = x * 0.5555555556;
+
+        } else if (u.equals("FK")) {
+            x = n + 459.67;
+            answer = x * 0.5555555556;
+
+        } else if (u.equals("KC")) {
+            answer = n - 273.15;
+
+        } else if (u.equals("KF")) {
+            x = n * 1.8;
+            answer = x - 459.67;
+
+        } else if (u.equals("CC") || u.equals("KK") || u.equals("FF")) {
+            System.out.println("You can't convert in the unit you coverting from!");
+
+        } else {
+            System.out.println("Error!");
+
         }
+
         return answer;
     }
 
     public static void main(String[] args) {
-        String fromUnit = inputFromUnit();
-        String toUnit = inputToUnit();
-        String Unit = fromUnit + toUnit;
-        System.out.println(Unit);
-        double number = inputNumber();
-        double answer = convert(Unit, number);
-        System.out.println(answer);
+        System.out.println(convert((inputFromUnit() + inputToUnit()), inputNumber()));
 
     }
 
